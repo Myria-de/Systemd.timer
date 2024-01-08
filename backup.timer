@@ -1,0 +1,20 @@
+[Unit]
+Description=Timer unit for backup.service
+
+[Timer]
+Unit=backup.service
+#Zeitangaben siehe man systemd.time
+#täglich um 18:00
+OnCalendar=*-*-* 18:00:00
+#täglich
+#OnCalendar=daily
+#entspricht
+#OnCalendar=*-*-* 00:00:00
+#Montag bis Freitag jeweils um 17:00
+#OnCalendar=Mon...Fri *-*-* 17:00:00
+#Falls der Rechner zum angegebenen Zeitpunkt
+#nicht angeschaltet war, Auftrag nachholen
+Persistent=true
+
+[Install]
+WantedBy=timers.target
