@@ -32,8 +32,14 @@ rsync -auP $SOURCE/ $BACKUP_DIR
 aus. Achten Sie auf den abschließenden „/“ hinter „$SOURCE“.
 
 # Backups per Systemd automatisieren
+Systemd startet Dienste oder Scripte automatisch beim Systemstart oder nach Zeitplan. Für ein automatisches Backup benötigen Sie die Konfigurationsdateien „backup.timer“ und „backup.service“, die Sie in den Ordner „/etc/systemd/system“ kopieren. In „backup.service“ passen Sie den Pfad zum Backup-Script an. In der Datei „tar-Backup.sh“ entfernen Sie hinter „SOURCE=“ die Variable und tragen den Pfad für den Ordner ein, den Sie sichern wollen.
+
+Führen Sie die folgenden drei Befehlszeilen im Terminal aus:
 ```
 systemctl daemon-reload
 systemctl enable backup.timer
 systemctl start backup.timer
 ```
+„backup.timer“ ist über die Zeile „OnCalendar=*-*-* 18:00:00“ für ein tägliches Backup um 18:00 Uhr konfiguriert. 
+Wenn Sie rsync für Backups verwenden wollen, tragen Sie in „backup.service“ hinter „ExecStart=“ die gewünschte Befehlszeile ein.
+
